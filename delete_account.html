@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Bike Rental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .warning-icon {
+            font-size: 60px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .warning-text {
+            color: #e74c3c;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .description {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .consequences {
+            background: #f8f9fa;
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .consequences h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .consequences ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .consequences li {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .consequences li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            color: #2c3e50;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+            min-width: 120px;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading {
+            display: none;
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .success-message {
+            display: none;
+            color: #27ae60;
+            background: #d5f4e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            display: none;
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning-icon">⚠️</div>
+        <h1>Delete Account</h1>
+        <p class="warning-text">This action cannot be undone!</p>
+        
+        <div class="description">
+            <p>You are about to permanently delete your Bike Rental account. This action will remove all your data from our system.</p>
+        </div>
+        
+        <div class="consequences">
+            <h3>What will be deleted:</h3>
+            <ul>
+                <li>Your personal information and profile</li>
+                <li>All booking history and records</li>
+                <li>Payment information and transaction history</li>
+                <li>Account preferences and settings</li>
+                <li>Any stored documents or images</li>
+            </ul>
+        </div>
+        
+        <form id="deleteForm">
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmText">Type "DELETE" to confirm:</label>
+                <input type="text" id="confirmText" name="confirmText" placeholder="Type DELETE here" required>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="confirmCheckbox" name="confirmCheckbox" required>
+                <label for="confirmCheckbox">I understand that this action is permanent and cannot be undone. I want to delete my account and all associated data.</label>
+            </div>
+            
+            <div class="loading" id="loading">Processing your request...</div>
+            <div class="success-message" id="successMessage">Account deleted successfully. You will be redirected shortly.</div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div>
+                <button type="submit" class="btn btn-danger" id="deleteBtn">Delete Account</button>
+                <button type="button" class="btn btn-secondary" onclick="window.close()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmText = document.getElementById('confirmText').value;
+            const confirmCheckbox = document.getElementById('confirmCheckbox').checked;
+            
+            // Validation
+            if (confirmText !== 'DELETE') {
+                showError('Please type "DELETE" exactly as shown to confirm.');
+                return;
+            }
+            
+            if (!confirmCheckbox) {
+                showError('Please check the confirmation checkbox.');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('deleteBtn').disabled = true;
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Simulate API call (replace with actual API endpoint)
+            fetch('/myproject/api/auth/delete-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                
+                if (data.success) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    setTimeout(() => {
+                        window.close();
+                    }, 3000);
+                } else {
+                    showError(data.message || 'Failed to delete account. Please try again.');
+                    document.getElementById('deleteBtn').disabled = false;
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading').style.display = 'none';
+                showError('Network error. Please check your connection and try again.');
+                document.getElementById('deleteBtn').disabled = false;
+            });
+        });
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
